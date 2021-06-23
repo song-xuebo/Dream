@@ -1,0 +1,1563 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>IT教育选辉达,辉达永盛教育助你成功走向高薪--辉达永盛教育官网</title>
+		<meta name="keywords" content="北京辉达IT教育，辉达永盛教育，求精求强不求大，只做引领和创新。"/>
+		<meta name="description" content="辉达IT教育，IT培训，web前端，javaEE，UI/UE"/>
+		<link rel="icon" href="./images/logos.svg" sizes="50x50">
+		<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+		<script src="./js/axios.min.js"></script>
+		<script src="https://cdn.bootcdn.net/ajax/libs/echarts/3.6.0/echarts.min.js"></script>
+		<link rel="stylesheet" href="./css/swiper.min.css">
+		<link rel="stylesheet" href="./css/Swiper.css">
+		<link rel="stylesheet" href="./css/indexCss.css">
+		<link href="https://cdn.bootcdn.net/ajax/libs/animate.css/4.1.1/animate.compat.min.css" rel="stylesheet">
+		<script src="./js/china.js"></script>
+		<script type="text/javascript" src="https://bot.4paradigm.com/web/assets/ics-web-sdk-js.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<div id="upload" v-show="uploadShow==false" >
+				正在加载中...
+			</div>
+			<div id="nav">
+				<div class="top_logo">
+					<img src="./admin/php/images/06499ce8logos.png" alt="" style="width: 100%;">
+				</div>
+				<div style=" display: flex;align-items: center;justify-content: space-around;">
+					<div @click="skip(index)" class="nav_box" v-for="(item,index) in itemNam" @click="topTextClick(item)">{{item}}
+					</div>
+				</div>
+			</div>
+			<div v-show="uploadShow==true">
+				<div id="banner">
+					<!-- 轮播 -->
+					<div class="swiper-container">
+						<div class="swiper-wrapper">
+							<div class="swiper-slide" v-for="item in srcImg">
+								<img :src="item" alt="" style="width: 100%;">
+							</div>
+						</div>
+					</div>
+					<!-- 头部导航 -->
+					<div id="top">
+						<div class="top lat">
+							<div class="top_logo">
+								<img src="./admin/php/images/06499ce8logos.png" alt="" style="width: 100%;">
+							</div>
+							<div class="top_text" v-if="textShow==true">
+								<div @click="skip(index)"  v-for="(item,index) in itemNam" class="top_text-div" @click="topTextClick(item)">{{item}}
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- 头部精品课程 -->
+					<div id="course" v-if="courseItemShow==true">
+						<div style="font-size: 20px; font-weight: 700;">精品课程</div>
+						<div v-for="(item,index) in courseItem" class="courseText" @click="courseItemClick(index+1)">
+							<div style="width: 20px; height: 20px;">
+								<img :src="item.icon" :alt="item.icon" style="width: 100%; ">
+							</div>
+							<span style="width: 80px;">{{item.course}}</span>
+						</div>
+					</div>
+				</div>
+				<!-- banner下收费标准 -->
+				<div id="bannerNext" v-if="bannerNextshow==true">
+					<div class="bannerNext lat">
+						<div v-for="item in bannerNext" class="bannerNextText"  @click="IcsWebSdkJs">
+							<div
+								style="width: 27px; height: 23x; display: flex; align-items: center; margin-right: 18px;">
+								<img :src="item.icon" :alt="item.icon" style="width: 100%; ">
+							</div>
+							<span style="width: 200px; font-size: 24px;">{{item.course}}</span>
+						</div>
+					</div>
+				</div>
+				<!-- 课程中心 -->
+				<div id="centre">
+					<!-- 标题 -->
+					<div id="headline">
+						<p class="headline_tit">课程中心</p>
+						<p class="headline_titNext">完善的课程研发体系紧跟技术发展及企业需求</p>
+						<div
+							style="position: absolute; left:50%;top:50px; margin-left: -130px; opacity:0.3; width: 35px; height: 35px; background-color: #6232E5; border-radius: 50%;">
+						</div>
+						<div
+							style="position: absolute; left:50%;top:80px; margin-left: 88px; opacity:0.3; width: 28px; height: 28px; background-color: #FFE290; border-radius: 50%;">
+						</div>
+						<div
+							style="position: absolute; left:50%;top:36px; margin-left: -110px; opacity:0.3; width: 31px; height: 31px; background-color: #3258E5; ">
+						</div>
+					</div>
+					<!-- 课程简介 -->
+					<div id="synopsis">
+						<div id="synopsis_content" class="lat">
+							<div class="synopsis_content" v-for="(item,index) in content"
+								@mouseenter='contentEnter(index)' @mouseleave='contentOut(index)'>
+								<div class="synopsis_content_a">
+									<h4>{{item.title}}</h4>
+									<span>{{item.body}}</span>
+									<div class="synopsis_content_div">
+										<img :src="item.images" alt="">
+									</div>
+								</div>
+								<div class="synopsis_content_b">
+									<h4>{{item.title}}</h4>
+									<div  @click="IcsWebSdkJs" class="synopsis_content_b_btn" :style="{background:item.color}">
+										<div style="width: 33px; height: 33px; margin-right: 20px;">
+											<img src="./images/课程大纲icon.svg" alt="" style="width: 100%;">
+										</div>
+										课程大纲
+									</div>
+									<div  @click="IcsWebSdkJs" class="synopsis_content_b_btn" :style="{background:item.color}">
+										<div style="width: 33px; height: 33px; margin-right: 20px;">
+											<img src="./images/试听.svg"  alt="" style="width: 100%;">
+										</div>
+										免费试听
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--立即咨询按钮 -->
+					<div class="centreBtn" @click="IcsWebSdkJs">
+						立即咨询
+					</div>
+					<!-- 课程大纲 -->
+					<div class="outline">
+						<div class="outline_box lat">
+							<h4>课程大纲</h4>
+							<span>高标准研发培训课程及项目教学质量有保障</span>
+							<div
+								style="position: absolute; width: 12px; height: 34px; background-color: rgba(50,88,229,0.3); top:-10px; left:-17px">
+							</div>
+						</div>
+					</div>
+					<!-- 课程切换 -->
+					<div class="outlineTab lat">
+						<div class="outlineTab_box">
+							<div class="outlineTab_boxDiv">
+								<div class="box" v-for="(item,index) in courseItems"
+									@click="outlineTabboxDiv(item,index)">
+									<div style="width: 24px; height: 26px; margin-right: 8px;">
+										<img :src="item.img" :alt="item.title">
+									</div>
+									<span>
+										{{item.title}}
+									</span>
+								</div>
+
+							</div>
+						</div>
+
+					</div>
+					<!-- 高级软件工程师课程培训标准标题 -->
+					<div class="outline" style="">
+						<div class="outline_box" style="border-color: #E1E1E1; font-size: 22px;">
+							<span>{{outlinebodyTitleA}}</span>
+						</div>
+					</div>
+					<!-- 高级软件工程师课程培训标准 -->
+					<div class="outlinebodyTitle_item">
+						<div class="outlinebodyTitle_item-box lat">
+							<div class="outlinebodyNumber">
+								<div class="outlinebodyNumberBox" v-for="(item,index) in outlinebodyTitleItem">
+									<div class="number">{{index+1}}</div>
+									<span></span>
+									<div class="outlinebodyItem">
+										{{item}}
+									</div>
+								</div>
+								<div class="xian"></div>
+							</div>
+						</div>
+					</div>
+
+					<!--  项目标准 标题-->
+
+					<!-- 项目特色 -->
+					<div class="outline">
+						<div class="outline_box" style="border-color: #E1E1E1; font-size: 22px;">
+							<span><span style="color:#000">项目特色</span></span>
+						</div>
+					</div>
+					<!-- 项目特色标题 -->
+					<div class="advantages">
+						<div class="advantagesItem lat">
+							<div class="advantagesItem_box" v-for="item in advantagesItems"
+								style="margin-bottom: 20px;">
+								<div class="advantagesItem_boxDiv" style="width: 52px; height: 52px;">
+									<img :src="item.icon" alt="" style="width: 100%;">
+								</div>
+								<h4>{{item.title}}</h4>
+								<p>{{item.textA}}</p>
+								<p>{{item.textB}}</p>
+							</div>
+						</div>
+					</div>
+					<!-- 哪个学科更适合你 按钮 -->
+					<div class="centreBtn"  @click="IcsWebSdkJs">
+						哪个学科更适合你
+					</div>
+				</div>
+				<div id="team">
+					<!-- 标题 -->
+					<div id="headline">
+						<p class="headline_tit">教研团队</p>
+						<p class="headline_titNext">技术大牛+硬核讲师为教学质量保驾护航，保障课程与企业需求实时接轨；10余年经验的教学老师更懂“教”与“学”！</p>
+						<div
+							style="position: absolute; left:50%;top:50px; margin-left: -130px; opacity:0.3; width: 35px; height: 35px; background-color: #6232E5; border-radius: 50%;">
+						</div>
+						<div
+							style="position: absolute; left:50%;top:80px; margin-left: 88px; opacity:0.3; width: 28px; height: 28px; background-color: #FFE290; border-radius: 50%;">
+						</div>
+						<div
+							style="position: absolute; left:50%;top:36px; margin-left: -110px; opacity:0.3; width: 31px; height: 31px; background-color: #3258E5; ">
+						</div>
+					</div>
+					<div class="teamText lat">
+						<div v-for="item in teamTextItem" class="teamTextBox">
+							<div style="font-size: 56px; position: relative; ">{{item.number}}<span
+									style="font-size: 12px;">{{item.unit}}</span> <span
+									style="font-size: 16px; position: absolute; left:65px;top:15px">{{item.monad}}</span>
+							</div>
+							<div class="teamTextBoxDiv" style="margin-left: 20px;">
+								<h4 style="font-size: 22px; font-weight: 500; color:rgba(12,45,99,1)">{{item.title}}
+								</h4>
+								<span style="font-size: 18px; color:rgba(12,45,99,1);">{{item.text}}</span>
+							</div>
+						</div>
+					</div>
+					<div class="teamTop">
+						<div class="teamTopItemz lat">
+							<div class="teamTopItem-box" v-for="(item,index) in teacherItem"
+								@mouseenter='teamEnter(index)' @mouseleave='teamOut(index)'>
+								<div class="teamTopItem-boxShow">
+									<div class="teamTopImg">
+										<img :src="item.img" alt="" style="width: 100%;">
+									</div>
+									<h4
+										style="font-size: 22px; color:rgba(12,45,99,1); font-weight: 500; margin: 18px 13px 5px;">
+										{{item.user}}
+									</h4>
+									<div
+										style="width: 50px; height: 5px; background: rgba(12,45,99,1); margin: 0px 13px 8px;">
+									</div>
+									<p
+										style="font-size: 14px; display: -webkit-box; overflow: hidden; margin: 0 13px 30px;-webkit-line-clamp: 3;-webkit-box-orient: vertical;">
+										{{item.intro}}
+									</p>
+								</div>
+								<div class="teamTopItem-boxFu" >
+									<h4 style="font-size: 22px; font-weight: 500; margin-bottom: 10px; ">
+										{{item.user}}
+									</h4>
+									<p style="display: flex; ">{{item.intro}}</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="outline" style="">
+						<div class="outline_box" style="border-color: #E1E1E1; font-size: 22px;">
+							16级标准严选专职课研老师，严控课程研发质量
+						</div>
+					</div>
+					<div class="teamTalents" v-if="teamTalentsShow==true">
+						<h4></h4>
+						<div class="teamTalentsBox lat">
+							<div class="teamTalentsBoxA">
+								<h4 
+									style="background: linear-gradient(to left, rgba(132, 158, 255, 1), rgba(59, 98, 246, 1);">
+									人才筛选4项标准
+								</h4>
+								<div class="teamTalentsBox_div">
+									<div class="teamBox_div" v-for="item in teamBoxItem"
+										style="margin-left: 25px; width: 250px; padding-top: 33px;">
+										<p style="font-size: 24px; color:rgba(12,45,99,1);">{{item.title}}</p>
+										<p style="font-size: 18px; color:rgba(117,127,162,1);">{{item.text}}</p>
+									</div>
+								</div>
+							</div>
+							<div class="teamTalentsBoxA" style="align-items:flex-start; padding-bottom: 0;">
+								<h4
+									style="background: linear-gradient(to left, rgba(132, 158, 255, 1), rgba(59, 98, 246, 1);">
+									人才考核8大环节
+								</h4>
+								<div class="teamTalentsBoxBb" style="margin-left:25px;">
+									<div v-for="(item,index) in teamItem"
+										style="text-align: center; width: 140px; height: 100%; padding-top: 20px;">
+										<span
+											style="margin: 0 auto; display: block; width: 68px; height: 80px; font-size: 57px; color:rgba(12,45,99,1); text-align: center;">0{{index+1}}</span>{{item}}
+									</div>
+								</div>
+							</div>
+							<div class="teamTalentsBoxA" style="align-items:flex-start; border-bottom: none;">
+								<h4
+									style=" width: 140px;height: 80px;padding: 50px 40px;background: linear-gradient(to left, rgba(132, 158, 255, 1), rgba(59, 98, 246, 1);">
+									人才培训及发展计划</h4>
+								<div
+									style="display: flex; width: calc(100% - 220px); height: 180px; align-items: center;justify-content: space-around;">
+									<div style="display: flex; width: 220px; height: 80px; border: 1px solid rgba(176,189,208,1); border-radius: 10px; "
+										v-for="item in teamTalents">
+										<div style="width: 46px; height: 42px; margin: 17px;">
+											<img :src="item.img" alt="" style="width: 100%; height: 100%;">
+										</div>
+										<div
+											style="width: calc(100% - 100px); font-size: 18px; color:rgba(56,77,157,1);margin: 17px 17px 17px 0">
+											{{item.text}}
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="centreBtn"  @click="IcsWebSdkJs">
+						咨询更多课程信息
+					</div>
+				</div>
+				<div class="diligently" v-if="bannerNextshow==true">
+					<div id="headline">
+						<p class="headline_tit" style="color:#fff">用心为每一位学员</p>
+						<p class="headline_titNext" style="color:#ACACAC">为毕业学员提供高质量人脉、职场资源、技术研习等众多学习交流机会</p>
+
+					</div>
+					<div class="diligentlyBox">
+						<div class="diligentlyBox_div" v-for="item in diligentlyItemA">
+							<div style="width: 170px; height: 170px; border-radius: 50%;background-color:#5E7EF6;">
+								<div
+									style="width: 152px; height: 152px; border-radius: 50%; overflow: hidden;background:#fff;margin:0px auto;transform:translateY(9px)">
+									<img :src="item.icon" alt="" style="width: 100%; height: 100%;">
+								</div>
+							</div>
+							<div style="font-size: 28px; text-align: center; margin: 0 auto; margin-top: 24px;">
+								<p>{{item.textA}}</p>
+								<p>{{item.textB}}</p>
+							</div>
+						</div>
+					</div>
+					<div class="diligentlyBox2">
+						<div class="diligentlyBox_div" v-for="item in diligentlyItemB">
+							<div style="width: 170px; height: 170px; border-radius: 50%;background-color:#5E7EF6;">
+								<div
+									style="width: 152px; height: 152px; border-radius: 50%; overflow: hidden;background:#fff;margin:0px auto;transform:translateY(9px)">
+									<img :src="item.icon" alt="" style="width: 100%; height: 100%;">
+								</div>
+							</div>
+
+							<div style="font-size: 28px; text-align: center; margin: 0 auto; margin-top: 24px;">
+								<p>{{item.textA}}</p>
+								<p>{{item.textB}}</p>
+							</div>
+						</div>
+					</div>
+
+					<div class="centreBtns"  @click="IcsWebSdkJs">
+						咨询课程信息
+					</div>
+				</div>
+				<div class="base" v-show="bannerNextshow==true">
+					<div id="headline">
+						<p class="headline_tit">服务基站</p>
+						<p class="headline_titNext">技术大牛+硬核讲师为教学质量保驾护航，保障课程与企业需求实时接轨；10余年经验的教学老师更懂“教”与“学”！</p>
+						<div
+							style="position: absolute; left:50%;top:50px; margin-left: -130px; opacity:0.3; width: 35px; height: 35px; background-color: #6232E5; border-radius: 50%;">
+						</div>
+						<div
+							style="position: absolute; left:50%;top:80px; margin-left: 88px; opacity:0.3; width: 28px; height: 28px; background-color: #FFE290; border-radius: 50%;">
+						</div>
+						<div
+							style="position: absolute; left:50%;top:36px; margin-left: -110px; opacity:0.3; width: 31px; height: 31px; background-color: #3258E5; ">
+						</div>
+						<!-- <div
+							style="position: absolute; left:50%;top:50px; margin-left: -160px; opacity:0.3; width: 35px; height: 35px; background-color: #6232E5; border-radius: 50%;">
+						</div>
+						<div
+							style="position: absolute; left:50%;top:80px; margin-left: 120px; opacity:0.3; width: 28px; height: 28px; background-color: #FFE290; border-radius: 50%;">
+						</div>
+						<div
+							style="position: absolute; left:50%;top:36px; margin-left: -140px; opacity:0.3; width: 31px; height: 31px; background-color: #3258E5; ">
+						</div> -->
+					</div>
+					<div style="display: flex; " class="lat">
+						<div id="echarts" ref="echarts" style="width: 1000px; height: 800px; text-align: center;">
+						</div>
+						<div style="width: 600px; position: relative; left:-140px">
+							<div v-if="echaItemShow==true" class="echaItemClass">
+								<div style="width: 170px; height: 138px;">
+									<!-- <img src="./images/北京.svg" alt="" style="width: 100%; height: 100%;"> -->
+									<img :src="echaItem.baseImg" alt="" style="width: 100%; height: 100%;">
+								</div>
+								<div
+									style="color:rgba(56,77,157,1); margin: 30px ; padding: 0 20px; border-left: 1px solid rgba(50,88,229,0.6); height:480px; width: 100%;">
+									<h3 style="font-size: 44px; ">{{echaItem.base}}</h3>
+									<p style="margin: 10px 0; font-size: 16px; ">介绍:<br /><span
+											style="text-indent: 2em; display: block; line-height: 30dpx;">{{echaItem.text}}</span>
+									</p>
+								</div>
+								<div style="width: 52px; height: 600px; position: absolute; left:460px;top:78px;">
+									<div @click="baseImgItemClick(item,index)" class="baseImgItemBox"
+										v-for="(item,index) in baseImgItem" style="">
+										<div style="width: 100%; height: 38px;">
+											<img :src="item.baseImg" alt="" style="width: 100%; height: 100%;">
+										</div>
+										<span>
+											{{item.name}}
+										</span>
+									</div>
+								</div>
+							</div>
+							<div v-if="echaItemShow==false" class="echaItemClass">
+								<h3 style="font-size: 44px;">{{echaItem.name}}基站建设中</h3>
+								<div style="width: 52px; height: 600px; position: absolute; left:460px;top:78px;">
+									<div @click="baseImgItemClick(item,index)" class="baseImgItemBox"
+										v-for="(item,index) in baseImgItem" style="">
+										<div style="width: 100%; height: 38px;">
+											<img :src="item.baseImg" alt="" style="width: 100%; height: 100%;">
+										</div>
+										{{item.name}}
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="centreBtn"  @click="IcsWebSdkJs">
+						咨询基站信息
+					</div>
+				</div>
+				<div class="dynamic">
+					<div id="headline">
+						<p class="headline_tit">辉达动态</p>
+						<p class="headline_titNext">顺应市场需求，不断改革、创新，构建前沿的课程体系，拓宽学员的知识深度与广度，为学员发展保驾护航</p>
+						<div
+							style="position: absolute; left:50%;top:50px; margin-left: -130px; opacity:0.3; width: 35px; height: 35px; background-color: #6232E5; border-radius: 50%;">
+						</div>
+						<div
+							style="position: absolute; left:50%;top:80px; margin-left: 88px; opacity:0.3; width: 28px; height: 28px; background-color: #FFE290; border-radius: 50%;">
+						</div>
+						<div
+							style="position: absolute; left:50%;top:36px; margin-left: -110px; opacity:0.3; width: 31px; height: 31px; background-color: #3258E5; ">
+						</div>
+					</div>
+					<div class="dynamicBox lat">
+						<div class='dynamicBox_divA'>
+							<h4 style="width: 120px; height: 42px; font-size: 28px; margin-bottom: 24px;">学院资讯</h4>
+							<div style="display: flex;">
+								<div class="dynamicBox_divAImg" style="overflow: hidden; text-align: center;">
+									<img :src="dynamic.img" alt="" style="height: 100%; width: 100%;">
+								</div>
+								<div style="width: calc(100% - 360px);">
+									<div class="subtitle" style="" v-for="item in dynamic.mesArr">
+										<div class="dynamicBox_divA_img">New</div>
+										<div style=" width: calc(100% - 68px); margin-left: 20px;">
+											<p style="margin-bottom: 10px; color:#101010">{{item.mesTitle}}</p>
+											<span class="dynamicBox_divASpan">{{item.mesCon}}</span>
+										</div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+						<div class="dynamicBox_divB">
+							<h4 style="width: 120px; height: 42px; font-size: 28px; margin-bottom: 24px; color:#101010">
+								新闻动态
+							</h4>
+							<div class="dynamicTitle">
+								<div style="cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 22px;"
+									v-for="(item,index) in dynamicItem" @click="dynamicItemClick(item)">
+									<span class="dynamicBox_divBSpan" v-if="index==0"
+										style="background:#FF7E00; color:#fff">{{index+1}}</span>
+									<span class="dynamicBox_divBSpan" v-if="index==1"
+										style="background:rgba(255,126,0,.6); color:#fff">{{index+1}}</span>
+									<span class="dynamicBox_divBSpan" v-if="index==2"
+										style="background:rgba(255,126,0,.3); color:#fff">{{index+1}}</span>
+									<span class="dynamicBox_divBSpan" v-if="index>2">{{index+1}}</span>
+									{{item.message}}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="campus">
+					<div id="headline">
+						<p class="headline_tit">校园环境</p>
+						<p class="headline_titNext">高配置学习环境让你安心学习</p>
+						<div 
+							style="position: absolute; left:50%;top:50px; margin-left: -130px; opacity:0.3; width: 35px; height: 35px; background-color: #6232E5; border-radius: 50%;">
+						</div>
+						<div
+							style="position: absolute; left:50%;top:80px; margin-left: 88px; opacity:0.3; width: 28px; height: 28px; background-color: #FFE290; border-radius: 50%;">
+						</div>
+						<div
+							style="position: absolute; left:50%;top:36px; margin-left: -110px; opacity:0.3; width: 31px; height: 31px; background-color: #3258E5; ">
+						</div>
+					</div>
+					<div class="campusBoxImg lat">
+						<div class="campusImg" v-for="(item,index) in campusImgs">
+							<img :src="item" alt="" style="width: 100%; height: 100%;">
+						</div>
+					</div>
+					<div class="campusNav">
+						<div class="campusNavTop lat">
+							<div v-for="(item,index) in campusNav" style="cursor: pointer;" class="campusNavTopDiv"
+								@click="campusNavClick(item,index)">{{item}}</div>
+						</div>
+					</div>
+				</div>
+				<div class="footing">
+					<div class="footingBox">
+						<div class="footingBoxLeft">
+							<div>
+								<h4>精品课程</h4>
+								<p v-for="item in footingBoxLeftAB">{{item}}</p>
+							</div>
+							<div>
+								<h4>课程推荐</h4>
+								<p v-for="item in footingBoxLeftAB">{{item}}课程</p>
+							</div>
+							<div>
+								<h4>关于辉达</h4>
+								<p v-for="item in footingBoxLeftC">{{item}}</p>
+							</div>
+							<div>
+								<h4>常见问题</h4>
+								<p v-for="item in footingBoxLeftD">{{item}}课程</p>
+							</div>
+							<div>
+								<h4>如何报名</h4>
+								<p v-for="item in footingBoxLeftF">{{item}}课程</p>
+							</div>
+						</div>
+						<div class="footingBoxRight">
+							<div class="footingBoxRightDiv">
+								<div style="padding: 10px; background: #fff;">
+									<img src="./images/1.jpg" alt="" style="width: 100%; height: 100%;">
+								</div>
+								<p>扫码关注辉达公众号</p>
+							</div>
+							<div class="footingBoxRightDiv">
+								<div  style="padding: 10px; background: #fff;">
+									<img src="./images/2.png" alt="" style="width: 100%; height: 100%;">
+								</div>
+								<p>扫码添加客服咨询</p>
+							</div>
+							<div style="width: 100%; margin-left: 40px;">
+								联系方式:19932677142
+							</div>
+						</div>
+					</div>
+					<div class="footingBox">
+						北京辉达永盛教育科技有限公司 版权所有Copyright 2006-2021  All Rights Reserved 京ICP备13009754号
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="js/swiper.min.js"></script>
+		<script src="js/vue.js"></script>
+		<script type="text/javascript">
+			var vm = new Vue({
+				el: '#app',
+				data: {
+					// imgUrl:"http://www.hd512.com/admin/php/images/",
+					// url:"http://localhost/hd_guanwang/admin/php/",
+					url:"https://www.hd512.com/admin/php/",
+					imgSrc:'./admin/php/images/',
+					uploadShow:false,
+					teamTalents: [ //人才培训及发展计划
+						{
+							img: "./images/平台管理.svg",
+							text: "平台、组件技术开源历练"
+						},
+						{
+							img: "./images/技术服务.svg",
+							text: "技术分享会"
+						},
+						{
+							img: "./images/赞.svg",
+							text: "大牛技术沙龙"
+						},
+
+						{
+							img: "./images/共享_常规.svg",
+							text: "大厂资源技术共享"
+						},
+
+					],
+					teamTalentsShow: true,
+					teamItem: [
+						"科研人员素质考核",
+						"课程设计考核",
+						"大纲设计考核",
+						"讲义撰写考核",
+						"视频录制考核",
+						"课程设计考核",
+						"产品全方位审评",
+						"考核答辩"
+					],
+					teamBoxItem: [ //人才筛选4项标准
+						{
+							title: "标准化研发人才画像",
+							text: "大厂背景，技术深度、广度，大型项目经验"
+						},
+						{
+							title: "多维面试（五面）",
+							text: "背景调查，技术360°鉴定，新课题设计，课程随机演绎，职业定位、发展规划"
+						},
+						{
+							title: "研究院小组诊断测评",
+							text: "教育情怀、价值观，进取精神、培养潜力"
+						},
+						{
+							title: "全链路面试流程监控",
+							text: "校长审核，信息存档"
+						}
+					],
+					teacherItem:[],
+					teamTextItem: [{
+							number: "22",
+							unit: "位",
+							monad: "",
+							title: "硬核讲师",
+							text: "授课经验丰富"
+						},
+						{
+							number: "3",
+							unit: "%",
+							monad: "",
+							title: "录取率",
+							text: "严选专职讲师"
+						},
+						{
+							number: "10",
+							unit: "年",
+							monad: "+",
+							title: "教学经验",
+							text: "授课经验丰富"
+						},
+						{
+							number: "5",
+							unit: "大",
+							monad: "",
+							title: "独创教学法",
+							text: "轻松理解技术难点"
+						}
+
+					],
+					footingBoxLeftAB: ["Java大数据", "web前端", "UI/UE设计", "软件测试"],
+					footingBoxLeftC: ["辉达概况", "联系我们", "对外合作", "1024程序员节"],
+					footingBoxLeftD: ["学费价格", "校区分布", "教学团队"],
+					footingBoxLeftF: ["报名流程", "来校地图", "住宿环境"],
+					campusImgs:[],//当前选中
+					campusNav:["学习环境","校区环境","餐饮环境","宿舍环境","基地环境"],//所有的校园环境图片
+	
+					dynamic:{},
+			
+					dynamicItem:[],//新闻动态数据
+				
+					diligentlyshow: true,
+					echaItemShow:true,
+					echaItem: {},//地图初始化默认显示基地
+					baseImgItem:[],//所有的基地数据
+					echartsItem: [{ //地图标点
+							name: "北京",
+							value: 278,
+						},
+						{
+							name: "天津",
+							value: 13,
+							
+						},
+						{
+							name: "河北",
+							value: 29,
+
+						},
+						{
+							name: "山西",
+							value: 12,
+							
+						},
+						{
+							name: "内蒙古",
+							value: 0,
+						},
+						{
+							name: "辽宁",
+							value: 0,
+						},
+						{
+							name: "吉林",
+							value: 0,
+						},
+						{
+							name: "黑龙江",
+							value: 0,
+						},
+						{
+							name: "上海",
+							value: 39,
+							
+						},
+						{
+							name: "江苏",
+							value: 26,
+						},
+						{
+							name: "浙江",
+							value: 0,
+						},
+						{
+							name: "安徽",
+							value: 0,
+						},
+						{
+							name: "福建",
+							value: 0,
+						},
+						{
+							name: "江西",
+							value: 0,
+						},
+						{
+							name: "山东",
+							value: 0,
+						},
+						{
+							name: "河南",
+							value: 49,
+							
+						},
+						{
+							name: "湖北",
+							value: 0,
+						},
+						{
+							name: "湖南",
+							value: 0,
+						},
+						{
+							name: "重庆",
+							value: 2,
+						},
+						{
+							name: "四川",
+							value: 2,
+						},
+						{
+							name: "贵州",
+							value: 0,
+						},
+						{
+							name: "云南",
+							value: 0,
+						},
+						{
+							name: "西藏",
+							value: 0,
+						},
+						{
+							name: "陕西",
+							value: 21,
+						},
+						{
+							name: "甘肃",
+							value: 0,
+						},
+						{
+							name: "青海",
+							value: 0,
+						},
+						{
+							name: "宁夏",
+							value: 0,
+						},
+						{
+							name: "新疆",
+							value: 0,
+						},
+						{
+							name: "广东",
+							value: 0,
+						},
+						{
+							name: "广西",
+							value: 0,
+						},
+						{
+							name: "海南",
+							value: 0,
+						},
+						{
+							name: "台湾",
+							value: 0,
+							text: ''
+						},
+					],
+					diligentlyItemA: [{
+							icon: 'images/data.svg',
+							textA: "一份面试",
+							textB: "可用的作品"
+						},
+						{
+							icon: 'images/delivery.svg',
+							textA: "教学资料笔记",
+							textB: "资源赠送"
+						},
+
+						{
+							icon: 'images/design.svg',
+							textA: "学长学姐",
+							textB: "就业经验分享"
+						},
+						{
+							icon: 'images/code.svg',
+							textA: "一份面试",
+							textB: "可用的作品"
+						},
+						{
+							icon: 'images/we-are-hiring.svg',
+							textA: "教学资料笔记",
+							textB: "资源赠送"
+						},
+						{
+							icon: 'images/no-messages.svg',
+							textA: "学长学姐",
+							textB: "就业经验分享"
+						},
+					],
+					diligentlyItemB: [{
+							icon: 'images/success.svg',
+							textA: "及时获取",
+							textB: "课程内容更新"
+						},
+						{
+							icon: 'images/product-launch.svg',
+							textA: "企业内推",
+							textB: "就业机会"
+						},
+
+						{
+							icon: 'images/error.svg',
+							textA: "高质量",
+							textB: "人脉圈子"
+						},
+						{
+							icon: 'images/searching.svg',
+							textA: "就业后工作问题",
+							textB: "跟踪解答"
+						},
+						{
+							icon: 'images/location.svg',
+							textA: "九大基站",
+							textB: "就业帮助服务"
+						},
+
+					],
+
+					advantagesItems: [{
+							icon: "./images/icon-rgb_运营数据集成.svg",
+							title: "全行业",
+							textA: "20+热门行业覆盖",
+							textB: "领跑行业"
+						}, {
+							icon: "./images/icon-rgb_架构智能分析-1.svg",
+							title: "高标准",
+							textA: "'亿元级'研发投入",
+							textB: "大厂深度共建"
+						},
+						{
+							icon: "./images/icon-rgb_smv-1.svg",
+							title: "真场景",
+							textA: "商业模式真实",
+							textB: "业务模型完整"
+						},
+						{
+							icon: "./images/icon-rgb_指标智能管理 (1).svg",
+							title: "深技术",
+							textA: "深度技术剖析",
+							textB: "贴合市场主流"
+
+						},
+						{
+							icon: "./images/icon-rgb_dmv.svg",
+							title: "快更新",
+							textA: "热门项目'月'更新",
+							textB: "前沿技术'周'更新"
+						},
+						{
+							icon: "./images/icon-rgb_运营化.svg",
+							title: "严保障",
+							textA: "12项评审流程",
+							textB: "4项验收标准"
+						}
+					],
+					styleWidth: '',
+					outlineItems: [],
+					outlinebodyTitleA: "",
+					outlinebodyTitleItem: [],
+					courseItems:[
+						{
+							"title":"Java大数据",
+							"iconA":"./images/java-script.svg",
+							"iconB":"./images/java-scripts.svg",
+							"img":"./images/java-script.svg",
+						},{
+							"title":"Web前端",
+							"iconA":"./images/8_3前端开发.svg",
+							"iconB":"./images/8_3前端开发s.svg",
+							"img":"./images/8_3前端开发s.svg",
+						},{
+							"title":"UI/UE设计",
+							"iconA":"./images/画笔.svg",
+							"iconB":"./images/画笔s.svg",
+							"img":"./images/画笔s.svg",
+						},{
+							"title":"软件测试",
+							"iconA":"./images/测试.svg",
+							"iconB":"./images/测试s.svg",
+							"img":"./images/画笔s.svg",
+						}
+						
+						],
+					outlinebodyTitleItemNext: [],
+					content: [ //课程中心内容
+						{
+							title: "Java大数据",
+							body: "世界第一编程语言",
+							images: "./images/大数据插图.svg",
+							color:"#19227D"
+						},
+						{
+							title: "Web前端",
+							body: "培养实战型企业核心人才",
+							images: "./images/web前端插图.svg",
+							color:"#189BA3"
+						},
+						{
+							title: "UI/UE设计",
+							body: "了解业务的全链路设计师",
+							images: "./images/UIUE设计插图.svg",
+							color:"#E7483F"
+						},
+						{
+							title: "软件测试",
+							body: "软件质量的额捍卫者",
+							images: "./images/软件测试.svg",
+							color:"#9879D0"
+						}
+					],
+					bannerNextshow: true,
+					bannerNext: [ //banner下收费标准
+						{
+							course: "学费价格",
+							icon: './images/send inquiry.svg'
+						},
+						{
+							course: "开班信息",
+							icon: './images/confirm.svg'
+						},
+						{
+							course: "入学攻略",
+							icon: './images/operation.svg'
+						},
+						{
+							course: "学员信息",
+							icon: './images/image-text.svg'
+						},
+
+					],
+
+					courseItemShow: true, //导航课程是否显示
+					courseItem: [ //导航课程
+						{
+							course: "Java大数据",
+							icon: './images/icon_java.svg'
+						},
+						{
+							course: "Web前端",
+							icon: './images/icon_web.svg'
+						},
+						{
+							course: "UI/UE设计",
+							icon: './images/icon_uiue.svg'
+						},
+						{
+							course: "软件测试",
+							icon: './images/icon_software test.svg'
+						},
+						{
+							course: "更多课程",
+							icon: './images/icon _more.svg'
+						}
+
+					],
+					topTextShow: false, //是否显示
+					textShow: true, //大小屏切换
+					srcImg: [ ],//轮播图
+					itemNam: [ //nav
+						"课程中心",
+						"师资力量",
+						"就业服务基站",
+						"辉达精神",
+						"关于辉达"
+					],
+					dataItem:[]//课程大纲的所有数据
+					
+				},
+				methods: {
+					skip(index){
+						console.log(index)
+						console.log($(document).scrollTop())
+						if(index==0) $(document).scrollTop("720")
+						if(index==1) $(document).scrollTop("2580")
+						if(index==2) $(document).scrollTop("5370")
+						if(index==3) $(document).scrollTop("6500")
+						if(index==4) $(document).scrollTop("7300")
+					},
+					dynamicItems(){//获取所有的新闻动态的数据
+						let dynamic=this.url+"dynamic.php"
+						axios.get(dynamic).then(data => {
+							let datas=data.data
+							datas.forEach(item=>{
+								item.img=this.imgSrc+item.img
+							})
+							this.dynamicItem=datas
+							this.dynamic=datas[0]
+							console.log(this.dynamic,"222")
+						})
+					},
+					dynamicItemClick(val) {
+						this.dynamic = val
+					},
+					campusItem(val){//校园环境数据
+						let campus=this.url+"environment.php?name="+val
+						axios.get(campus).then(data => {
+							this.campusImgs=[]
+							let datas=data.data.img
+							datas.forEach(item=>{
+								this.campusImgs.push(this.imgSrc+item)
+							})
+						})
+					},
+					campusNavClick(val, index) {
+						$(".campusNavTopDiv").css({
+							"border": "none",
+							"padding-top": "10px",
+							"color":"#000"
+						})
+						$(".campusNavTopDiv").eq(index).css({
+							"padding-top": "6px",
+							"border-top": "4px solid #3258E5",
+							"color":"#3258E5"
+						})
+						this.campusItem(val)
+					},
+					
+					baseItem(){//请求基站数据
+						let base=this.url+"echarts.php "
+						axios.get(base).then(data => {
+							console.log(data,"121212")
+							let datas=data.data
+							console.log(datas,"2")
+							datas.forEach(item=>{
+								item.baseImg=this.imgSrc+item.baseImg
+							})
+							console.log(datas,"2s")
+							this.baseImgItem=datas
+							this.echaItem=this.baseImgItem[0]
+						})
+					},
+					baseImgItemClick(val, index) {//点击地图右边图片
+						$(".baseImgItemBox").css({
+							"opacity": 0.5
+						})
+						$(".baseImgItemBox").eq(index).css({
+							"opacity": 1
+						})
+						this.echaItem=val
+					},
+					base() {//地图点
+						// this.echartsItem的值应该通过axios来获取
+						var thas = this
+						let myChart = echarts.init(this.$refs.echarts)
+						var mapName = 'china' //查找./map/js/china.js 下中国地图相关坐标
+						var data = this.echartsItem
+						var geoCoordMap = {};
+
+						/*获取地图数据*/
+						myChart.showLoading();
+						var mapFeatures = echarts.getMap(mapName).geoJson.features;
+						myChart.hideLoading();
+						mapFeatures.forEach(function(v) {
+							// 地区名称
+							var name = v.properties.name;
+							// 地区经纬度
+							geoCoordMap[name] = v.properties.cp;
+
+						});
+
+						console.log(data)
+						var max = 500,
+							min = 10; // todo 
+						var maxSize4Pin = 50,
+							minSize4Pin = 20;
+
+						var convertData = function(data) {
+							
+							var res = [];
+							for (var i = 0; i < data.length; i++) {
+								var geoCoord = geoCoordMap[data[i].name];
+								if (geoCoord) {
+									res.push({
+										name: data[i].name,
+										value: geoCoord.concat(data[i].value),
+									});
+								}
+							}
+							// console.log(res,"1222222222222222222222222")
+							return res;
+						};
+						let option = {
+							tooltip: {
+								trigger: 'item',
+								formatter: function(params) {
+									return params.data.name
+								}
+							},
+							visualMap: {
+								show: false,
+								min: 0,
+								max: 500,
+								left: 'left',
+								top: 'bottom',
+								text: ['高', '低'], // 文本，默认为数值文本
+								calculable: true,
+								seriesIndex: [1],
+								inRange: {
+									color: ['#00467F', '#A5CC82'] // 蓝绿
+								}
+							},
+							geo: {
+								show: true,
+								map: mapName,
+								label: {
+									normal: {
+										show: false
+									},
+									emphasis: {
+										show: false,
+									}
+								},
+								roam: false, //是否可以通过鼠标滑轮放大缩小地图
+								itemStyle: {
+									normal: {
+										areaColor: '#031525',
+										borderColor: '#3B5077',
+									},
+									emphasis: {
+										areaColor: '#2B91B7',
+									}
+								}
+							},
+							series: [{
+									name: '散点',
+									type: 'scatter',
+									coordinateSystem: 'geo',
+									data: convertData(data),
+									symbolSize: function(val) {
+										return val[2] / 10;
+									},
+									label: {
+										normal: {
+											formatter: '{b}',
+											position: 'right',
+											show: true
+										},
+										emphasis: {
+											show: true
+										}
+									},
+									itemStyle: {
+										normal: {
+											color: '#05C3F9'
+										}
+									}
+								},
+								{
+									type: 'map',
+									map: mapName,
+									geoIndex: 0,
+									aspecttext: 0.75, //长宽比
+									showLegendSymbol: false, // 存在legend时显示
+									label: {
+										normal: {
+											show: true
+										},
+										emphasis: {
+											show: false,
+											textStyle: {
+												color: '#fff'
+											}
+										}
+									},
+									roam: true,
+									itemStyle: {
+										normal: {
+											areaColor: '#031525',
+											borderColor: '#3B5077',
+										},
+										emphasis: {
+											areaColor: '#2B91B7'
+										}
+									},
+									animation: false,
+									data: data
+								},
+								{
+									name: '点',
+									type: 'scatter',
+									coordinateSystem: 'geo',
+									symbol: 'pin', //气泡
+									symbolSize: function(val) {
+										var a = (maxSize4Pin - minSize4Pin) / (max - min);
+										var b = minSize4Pin - a * min;
+										b = maxSize4Pin - a * max;
+										return a * val[2] + b;
+									},
+									label: {
+										normal: {
+											// formatter: '{@[2]}',
+											show: true,
+											textStyle: {
+												color: '#fff',
+												fontSize: 9,
+											}
+										}
+									},
+									itemStyle: {
+										normal: {
+											color: '#F62157', //标志颜色
+										}
+									},
+									zlevel: 6,
+									data: convertData(data),
+								},
+								{
+									name: 'Top 5',
+									type: 'effectScatter',
+									coordinateSystem: 'geo',
+									data: convertData(data.sort(function(a, b) {
+										return b.value - a.value;
+									}).slice(0, 5)),
+									symbolSize: function(val) {
+										return val[2] / 25;
+									},
+									showEffectOn: 'render',
+									rippleEffect: {
+										brushType: 'stroke'
+									},
+									hoverAnimation: true,
+									label: {
+										normal: {
+											formatter: '{b}',
+											position: 'right',
+											show: true
+										}
+									},
+									itemStyle: {
+										normal: {
+											color: 'yellow',
+											shadowBlur: 10,
+											shadowColor: 'yellow'
+										}
+									},
+									zlevel: 1
+								},
+
+							]
+						};
+						myChart.setOption(option);
+						myChart.on('click', function(params) { //事件委托给所有的子元素添加点击事件
+							let i=thas.echaItem
+							thas.echaItemShow=false
+							thas.echaItem=params.data
+							thas.baseImgItem.forEach((item, index) => {
+								if (params.data.name == item.name) {
+									thas.echaItem = item
+									$(".baseImgItemBox").css({
+										"opacity": 0.5
+									})
+									$(".baseImgItemBox").eq(index).css({
+										"opacity": 1
+									})
+									thas.echaItemShow=true
+								}
+							})
+							
+							
+						})
+					},
+					outlineItem(val) {
+						this.dataItem.forEach(item=>{
+							if(val.title==item.title){
+								this.outlinebodyTitleA=item.bodyTitle
+								this.outlinebodyTitleItem=item.bodyItem
+							}
+						})
+						
+					},
+					topText() {
+						this.topTextShow = true
+					},
+					topTextshow() {
+						this.topTextShow = false
+						return false
+					},
+					topTextClick(val) {
+						alert("点击了" + val)
+						
+					},
+					courseItemClick(index) {
+						if(index<5){
+							window.open("./coursePage.html?id="+index);
+						}else{
+							// console.log(22)
+							this.IcsWebSdkJs()
+						}
+					},
+					contentEnter(index) {
+						$('.synopsis_content_b').eq(index).animate({
+							"top": "-1px"
+						}, 200)
+					},
+					contentOut(index) {
+						console.log(index)
+						$('.synopsis_content_b').eq(index).animate({
+							"top": "-444px"
+						}, 200)
+					},
+					teamEnter(index) {
+						console.log(index)
+						$('.teamTopItem-boxFu').eq(index).animate({
+							"top": "0"
+						}, 200)
+					},
+					teamOut(index) {
+						console.log(index)
+						$('.teamTopItem-boxFu').eq(index).animate({
+							"top": "400px"
+						}, 200)
+					},
+					outlineTabboxDiv(item, index) {
+						$(".box").css({
+							"border-bottom": "10px solid #fff"
+						}).find("span").css({
+							"color": "#B0BDD0"
+						})
+						$(".box").eq(index).css({
+							"border-bottom": "10px solid #3258E5",
+						}).find("span").css({
+							"color": "#3258E5"
+						})
+						console.log(item,index)
+						this.outlineItem(item)
+						this.courseItems.forEach((items,indexs) => {
+								if (items.title==item.title) {
+									items.img=items.iconA
+								} else {
+									items.img=items.iconB
+								}
+						})
+						
+					},
+					
+					IcsWebSdkJs(){
+						
+					}
+				},
+				mounted() {
+					
+					var system = {};
+					 
+					var p = navigator.platform;
+					 
+					console.log(p);
+					 
+					system.win = p.indexOf("Win") == 0;
+					 
+					system.mac = p.indexOf("Mac") == 0;
+					 
+					if (system.win || system.mac) {//如果是电脑
+					 
+						
+					 
+					} else { //如果是手机,
+						this.uploadShow=false
+						location.replace("https://www.hd512.com/mobile")
+						return false
+					 
+					}
+					
+					
+					
+					
+					console.log($(".code-msg"),"OAUS哦还afahdsofahof")
+					$(document).scroll(function(){
+						let scroll=$(document).scrollTop()
+						if(scroll>100){
+							$("#nav").css({
+								"display":"flex",
+							})
+						}else{
+							$("#nav").css({
+								"display":"none",
+							})
+						}
+						if(scroll<2570){
+							$(".nav_box").css({
+								"color":"#000",
+								"background":"#fff"
+							}).eq(0).css({
+								"color":"#fff",
+								"background":"linear-gradient(to left, rgba(132, 158, 255,.8), rgb(59, 98, 246))"
+							})
+						}
+						if(scroll>2570 && scroll<5350){
+							$(".nav_box").css({
+								"color":"#000",
+								"background":"#fff"
+							}).eq(1).css({
+								"color":"#fff",
+								"background":"linear-gradient(to left, rgba(132, 158, 255,.8), rgb(59, 98, 246))"
+							})
+						}
+						if(scroll>5350 && scroll<6490){
+							$(".nav_box").css({
+								"color":"#000",
+								"background":"#fff"
+							}).eq(2).css({
+								"color":"#fff",
+								"background":"linear-gradient(to left, rgba(132, 158, 255,.8), rgb(59, 98, 246))"
+							})
+						}
+						if(scroll>6490 && scroll<7290){
+							$(".nav_box").css({
+								"color":"#000",
+								"background":"#fff"
+							}).eq(3).css({
+								"color":"#fff",
+								"background":"linear-gradient(to left, rgba(132, 158, 255,.8), rgb(59, 98, 246))"
+							})
+						}
+						if(scroll>7190){
+							$(".nav_box").css({
+								"color":"#000",
+								"background":"#fff"
+							}).eq(4).css({
+								"color":"#fff",
+								"background":"linear-gradient(to left, rgba(132, 158, 255,.8), rgb(59, 98, 246))"
+							})
+						}
+					})
+					// 页面初始动画
+					$('#upload').addClass('animated tada')
+						let set=setInterval(function(){
+						    $('#upload').addClass('tada');
+							setTimeout(function(){
+							    $('#upload').removeClass('tada');
+							}, 1000)
+						}, 2000)
+					// 接口地址
+					// 轮播图
+					
+					let carouse=this.url+"banners.php?id=5"
+					axios.get(carouse).then(data => {
+						if(data.status==200){
+							this.srcImg=[]
+							this.uploadShow=true
+							console.log(this.uploadShow)
+							clearInterval(set)
+							let datas=data.data.imgUrls
+							datas.forEach(item=>{
+								this.srcImg.push(this.imgSrc+item)
+							})
+							// console.log(this.srcImg,"222222222222222222")
+						}
+					})
+					// 师资
+					let teacherUrl=this.url+"faculty.php"
+					axios.get(teacherUrl).then(data => {
+						// console.log(data.data,"资")
+						let datas=data.data
+						datas.forEach(item=>{
+							item.img=this.imgSrc+item.img
+						})
+						// console.log(datas)
+						this.teacherItem=datas
+					})
+					// 课程大纲
+					let url=this.url+"course_center.php?id=all"
+					axios.get(url).then(data=>{
+						this.dataItem=data.data
+						// 页面初始化是默认数据
+						console.log(this.dataItem,"this.dataItem")
+						this.dataItem.forEach(item=>{
+							if(this.courseItems[0].title==item.title){
+								this.outlinebodyTitleA=item.bodyTitle
+								this.outlinebodyTitleItem=item.bodyItem
+							}
+						})
+						
+					})
+					
+					let thas = this
+					if (document.body.clientWidth <= 1250) {
+						this.textShow = false
+						this.courseItemShow = false
+						this.bannerNextshow = false
+						this.teamTalentsShow = false
+
+					}
+					if (document.body.clientWidth <= 1300) {}
+					window.onresize = function() {
+						console.log(document.body.clientWidth)
+						if (document.body.clientWidth <= 1200) {
+
+						} else {
+
+						}
+						if (document.body.clientWidth <= 1250) {
+							thas.teamTalentsShow = false
+							thas.textShow = false
+							thas.courseItemShow = false
+							thas.bannerNextshow = false
+						} else {
+							thas.teamTalentsShow = true
+							thas.textShow = true
+							thas.courseItemShow = true
+							thas.bannerNextshow = true
+						}
+
+					}
+					this.outlineItem(1)
+					this.base()
+					this.baseItem()//请求后台接口基站数据
+					this.dynamicItems()//新闻动态数据
+					this.campusItem("学习环境")//校园环境
+				},
+
+			})
+		</script>
+		<script>
+			var swiper = new Swiper('.swiper-container', {
+				nextButton: '.swiper-button-next',
+				prevButton: '.swiper-button-prev',
+				paginationClickable: true,
+				centeredSlides: true,
+				autoplay: 3000,
+				autoplayDisableOnInteraction: false
+			});
+		</script>
+	</body>
+</html>
